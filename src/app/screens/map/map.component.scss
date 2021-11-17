@@ -1,0 +1,97 @@
+$base: #E25875;
+$color: #EEE;
+
+.mapContainer{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+#mapContent {
+    // background-color: rgb(67, 84, 138);
+    left:0;
+    top:0;
+  }
+
+  .userBoxEffect{
+    position: absolute;
+    top: 500;
+    left: 500;
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    transition: 0.3s;
+    margin-left: -10px;
+    box-shadow: 0px 0px 9px 3px #dedede;
+    background-color: #141130;
+    margin-top: -10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .NoPic{
+      color: #fff;
+      font-size: 100px;
+    }
+    .UserName{
+      position: absolute;
+      bottom: -58px;
+      font-size: 40px;
+      text-shadow: -2px -2px 4px black, 2px 2px 4px black, 2px -2px 4px black, -2px 2px 4px black;
+    }
+  }
+
+  .userContainer{
+    position: absolute;
+    top: 500;
+    left: 500;
+    transition: 0.3s;
+  }
+
+  .userBox {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    video{
+      object-fit: cover;
+    }
+  }
+  
+.showIcon{
+  display: block;
+}
+
+.dontShow{
+  display: none;
+}
+
+  .scene {
+    height: 350px;
+    position: absolute;
+    width: 350px;
+    transform: translate(500, 500);
+    .floor {
+      background-color: darken($color, 5%);
+      height: 350px;
+      width: 350px;
+    }
+    
+    .cube {
+      position: relative;
+      div {
+        background-color: $color;
+        height: 50px;
+        width: 50px;
+        &:nth-child(2) {
+          background: darken($color, 20%);
+        }
+        &:nth-child(3) {
+          background: darken($color, 30%);
+        }
+      }
+    }
+  }
+  

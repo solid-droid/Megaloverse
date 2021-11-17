@@ -1,0 +1,42 @@
+<div class="container" id="MainHeader">
+    <div class="title">
+        MEGALOVERSE
+    </div>
+    <div class="announcements">
+        <div class="announcement-icon">
+            <i class="fas fa-bullhorn"></i>
+        </div>
+        <div class="text">
+            Welcome to the future of hackathons and Expos!!
+        </div>
+    </div>
+    <div class="menu">
+        <div class="btn" (click)="updateCAM()">
+            <div *ngIf="getData.cam" title="Video ON">
+                <i class="fas fa-video"></i>
+            </div>
+            <div *ngIf="!getData.cam" title="Video OFF">
+                <i class="fas fa-video-slash"></i>
+            </div>
+        </div>
+        <div class="btn" (click)="updateMIC()">
+            <div *ngIf="getData.mic" title="Mic ON">
+                <i class="fas fa-microphone"></i>
+            </div>
+            <div *ngIf="!getData.mic" title="Mic OFF">
+                <i class="fas fa-microphone-slash"></i>
+            </div>
+        </div>
+        <div (click)="updateUserLock()" class="btn user">
+            <div *ngIf="getData.userLock" title="Locked">
+                <i class="fas fa-street-view"></i>
+            </div>
+            <div *ngIf="!getData.userLock" title="Free">
+                <i class="fas fa-male"></i>
+            </div>
+        </div>
+        <div class="btn expand" title="Full Screen">
+            <i class="fas fa-expand"></i>
+        </div>
+    </div>
+</div>

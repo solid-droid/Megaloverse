@@ -1,0 +1,14 @@
+<div class="container">
+    <div *ngFor = "let user of getData.userList;let i = index" class="videoContainer">
+        <div *ngIf="!user.localUser" class="video {{user.talking? 'bigger':''}}">
+            <div class="videoFeed" >
+                <video width="100%" height="100%" id="videoFeed_{{user.id}}"  [muted]="'muted'" autoplay></video>
+            </div>
+            <div class="{{user.talking? 'bigName':'smallName'}}">
+                {{user.name}}
+            </div>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,45 @@
+.container{
+    height: 100%;
+    width: auto;
+    max-width: 97vw;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    .videoContainer{
+        display: inline-block;
+        align-self: center;
+       .video{
+            min-width: 90px;
+            min-height: 60px;
+            width: 90px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            margin: 5px;
+            border:solid 1px white;
+            overflow: hidden;
+        }
+        .videoFeed{
+            transition: 0.3s;
+        }
+        .bigger{
+            width: 120px;
+            height: 80px;
+        }
+
+        .smallName,  .bigName{
+            position: absolute;
+            transition: 0.3s;
+        }
+        .smallName{
+            bottom: 0px;
+        }
+        .bigName{
+            bottom: 15px;
+        }
+    }
+}
