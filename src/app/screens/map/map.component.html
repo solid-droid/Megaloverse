@@ -1,48 +1,6 @@
 <div class="mapContainer">
 <div id="mapContent">
-        <div class="scene">
-            <div class="isometric floor" data-view="top"></div>
-            <div
-                class="isometric cube"
-                data-animation="right: 300"
-                data-animation-easing="ease-in-out"
-            >
-                <div class="isometric" data-view="top" data-top="70"></div>
-                <div class="isometric" data-view="front" data-right="50"></div>
-                <div class="isometric" data-view="side" data-left="50"></div>
-            </div>
-            <div
-                class="isometric cube"
-                data-right="300"
-                data-animation="left: 300"
-                data-animation-easing="ease-in-out"
-            >
-                <div class="isometric" data-view="top" data-top="50"></div>
-                <div class="isometric" data-view="front" data-right="50"></div>
-                <div class="isometric" data-view="side" data-left="50"></div>
-            </div>
-            <div
-                class="isometric cube"
-                data-left="300"
-                data-animation="left: 0"
-                data-animation-easing="ease-in-out"
-            >
-                <div class="isometric" data-view="top" data-top="50"></div>
-                <div class="isometric" data-view="front" data-right="50"></div>
-                <div class="isometric" data-view="side" data-left="50"></div>
-            </div>
-            <div
-                class="isometric cube"
-                data-right="300"
-                data-left="300"
-                data-animation="right: 0"
-                data-animation-easing="ease-in-out"
-            >
-                <div class="isometric" data-view="top" data-top="50"></div>
-                <div class="isometric" data-view="front" data-right="50"></div>
-                <div class="isometric" data-view="side" data-left="50"></div>
-            </div>
-        </div>
+
         <div *ngFor = "let user of getData.userList;" class="userContainer" [ngStyle]="{top:user.y,left:user.x}">
             <div class="userBoxEffect">
                 <i class="fas fa-user-ninja NoPic"></i>

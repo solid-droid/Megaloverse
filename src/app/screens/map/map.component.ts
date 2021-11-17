@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { IsometricCSS } from 'isometric-css';
 import { GetDataService } from 'src/app/services/get-data.service';
 declare const panzoom;
 declare const $;
@@ -19,7 +18,6 @@ export class MapComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    IsometricCSS.processDOM();
     const container = document.querySelector('#mapContent');
     panzoom(container, {
 			maxZoom: 1,
