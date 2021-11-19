@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
     private readonly getData: GetDataService
   ){}
   ngOnInit() {
-    // this.getData.initDolbyIO();
+    this.getData.initDolbyIO();
   }
 
 

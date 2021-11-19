@@ -16,6 +16,8 @@ export class GetDataService {
   localUserObj:any;
   localUser = null;
   userLock = false;
+  inConference = false;
+  talking = false;
   mic = false;
   cam = true;
   content = {
@@ -24,6 +26,9 @@ export class GetDataService {
     label: [],
     space: [],
   }
+  life = null;
+  validateLife = null;
+  prevkey = '/';
 
   private readonly Observable_userList = new BehaviorSubject(undefined);
   getuserList = this.Observable_userList.asObservable();
@@ -48,7 +53,12 @@ export class GetDataService {
       if(!_content){
         alert('No map found');
         this.router.navigate([Object.keys(maps)[0]]);
-      }
+      } else{
+        if(this.prevkey !== key){
+          this.prevkey = key;
+          this.exitandjoin(key);
+        }
+      } 
     }
    _content.images.forEach(x => {
      x.url = this.getSafeUrl(x.url);
@@ -66,6 +76,19 @@ export class GetDataService {
 
   }
 
+  async exitandjoin(key){
+    while(!this.localUser){
+      await new Promise(r => setTimeout(r, 100));
+    }
+    if(this.inConference){
+      VoxeetSDK.conference.leave();
+      this.sendMessage(JSON.stringify({type: 'leave'}));
+    }
+    this.inConference = false;
+    await new Promise(r => setTimeout(r, 500));
+    this.joinRoom(key);
+  }
+
   getSafeUrl(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url)
 }
@@ -74,13 +97,12 @@ export class GetDataService {
     await new Promise(r => setTimeout(r, 500));
     let name = prompt("Please enter your user-name or create a new one.");
   if (name) {
-    this.localUser = name;
     const consumerKey = '4f872ZvovhxGINUicNcqNg==';
     const consumerSecret = 'K9QoiiENFkjVg8Pc6VmWAUuQjk8YyPnXxfRD9KL1lbw=';
     VoxeetSDK.initialize(consumerKey, consumerSecret);
     await VoxeetSDK.session.open({ name });
     this.initCallbacks();
-    this.joinGeneralRoom();
+    this.localUser = name;
   }
     
   }
@@ -105,7 +127,8 @@ export class GetDataService {
             cam : true,
             x: '500px',
             y: '500px',
-            local: true
+            local: true,
+            lastUpdate: performance.now(),
           };
         }
         const videoNode = document.getElementById(`userBox_local`);  
@@ -129,21 +152,23 @@ export class GetDataService {
             mic : false,
             cam : true,
             x: '500px',
-            y: '500px'
+            y: '500px',
+            lastUpdate: performance.now(),
           }
         }
         if(participant.id !== this.localUserObj.id){
           this.userList = Object.values(this.masterList).filter((x:any) => x.id !== this.localUserObj.id);
           await new Promise(r => setTimeout(r, 500));
-          console.log('attaching');
           const videoNode = document.getElementById(`userBox_${participant.id}`);  
           attachStream(videoNode, stream);
         }
     });
 
     VoxeetSDK.conference.on('streamRemoved', (participant, stream) => {
-      this.masterList[participant.id].cam = false;
-      this.userList = Object.values(this.masterList).filter((x:any) => x.id !== this.localUserObj.id);
+      if(this.masterList[participant.id]){
+        this.masterList[participant.id].cam = false;
+        this.userList = Object.values(this.masterList).filter((x:any) => x.id !== this.localUserObj.id);
+      }
     });
 
     const messageCallBack = {
@@ -163,6 +188,15 @@ export class GetDataService {
           y:  this.masterList[this.localUserObj.id].y,
         }));
       },
+      leave: (id, message) => {
+        delete this.masterList[id];
+        this.userList = Object.values(this.masterList).filter((x:any) => x.id !== this.localUserObj.id);
+      },
+      keepAlive: (id, message) => {
+        if(this.masterList[id]){
+          this.masterList[id].lastUpdate = performance.now();
+        }
+      },
       camON: (id, message) => {
         this.masterList[id].cam = true;
         this.userList = Object.values(this.masterList).filter((x:any) => x.id !== this.localUserObj.id);
@@ -177,14 +211,37 @@ export class GetDataService {
     
   }
 
-  async joinGeneralRoom(roomName = 'general1jjj') {
+  async joinRoom(roomName = 'testingRoom') {
     VoxeetSDK.conference.create({ alias: roomName, params: { dolbyVoice: true } })
     .then((conference) => VoxeetSDK.conference.join(conference, {constraints: { audio: false, video: true }}))
                           .then(() =>{
                             this.checkTalking();
+                            this.inConference = true;
+                            this.keepAlive();
                           })
                           .catch((e) => console.log('Something wrong happened : ' + e));
   }
+
+keepAlive(){
+if(this.life){
+  clearInterval(this.life);
+}
+if(this.validateLife){
+  clearInterval(this.validateLife);
+}
+this.life = setInterval(() => {
+    this.sendMessage(JSON.stringify({type: 'keepAlive'}));
+  },1000);
+this.life = setInterval(() => {
+   Object.keys(this.masterList).forEach((key) => {
+    if(!this.masterList[key].local && this.masterList[key].lastUpdate + 3000 < performance.now()){
+       delete this.masterList[key];
+       this.userList = Object.values(this.masterList).filter((x:any) => x.id !== this.localUserObj.id);
+    }
+
+   });
+},2000);
+}
 
 checkTalking(){
     setInterval(() => {
@@ -193,15 +250,24 @@ checkTalking(){
         VoxeetSDK.conference.isSpeaking( VoxeetSDK.conference.participants.get(participant[0]),
           isSpeaking => {
             const entry = this.userList.find(x => x.id === participant[0])
+            if(this.masterList[participant[0]]){
+              this.masterList[participant[0]].talking = isSpeaking;
+                          if( this.masterList[participant[0]].local){
+              this.talking = isSpeaking;
+            }
+            } else{
+
+            }
+
+
             if(entry){
               this.userList.find(x => x.id === participant[0]).talking = isSpeaking;  
-              this.masterList[participant[0]].talking = isSpeaking;
             } else {
               this.userList = this.userList.filter(x => x.id !== participant[0]);
             }
         });
       }
-    }, 500);
+    }, 200);
 
   }
 

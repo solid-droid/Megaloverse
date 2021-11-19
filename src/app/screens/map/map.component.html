@@ -22,7 +22,11 @@
             <iframe [src]="item.url"></iframe>
         </div>
         <div *ngFor = "let user of getData.userList;" class="userContainer" [ngStyle]="{top:user.y,left:user.x}">
-            <div class="userBoxEffect">
+            <div class="userBoxEffect" [ngStyle]="{
+                'box-shadow': user.talking ? 
+                '0px 0px 30px 3px #3da942' : 
+                '0px 0px 9px 3px #dedede'
+            }">
                 <i class="fas fa-user-ninja NoPic"></i>
                 <div class="UserName">
                     {{user.name}}
@@ -35,7 +39,14 @@
 
 
         <div id="localUser" class="userContainer">
-            <div class="userBoxEffect" [ngStyle]="{'background-color': !getData.userLock ? '#141130': '#743030'}">
+            <div class="userBoxEffect" [ngStyle]="{
+                'background-color': !getData.userLock ? '#141130': '#743030',
+                'box-shadow': getData.talking ? 
+                '0px 0px 30px 3px #3da942' : 
+                '0px 0px 9px 3px #dedede'
+            
+            }"
+            >
                 <i class="fas fa-user-ninja NoPic"></i>
                 <div class="UserName">
                     {{getData.localUser}}
