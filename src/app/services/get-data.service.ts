@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 
 declare const VoxeetSDK;
 declare const attachStream;
-declare const maps;
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +33,8 @@ export class GetDataService {
     private readonly router: Router,
   ) {  }
 
-  getMap(key){
+  async getMap(key){
+    const maps =await (await fetch('https://naughty-poitras-5d647a.netlify.app/.netlify/functions/api')).json();
     let _content:any = {
       images : [],
       iframes : [],
