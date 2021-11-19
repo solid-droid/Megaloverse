@@ -1,11 +1,10 @@
 {
   "name": "megaloverse",
   "version": "0.0.0",
-  "homepage": "https://solid-droid.github.io/Megaloverse/",
   "scripts": {
     "ng": "ng",
-    "deploy": "gh-pages -d dist",
     "start": "ng serve",
+    "deploy":"ng deploy --base-href=/Megaloverse/",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -21,8 +20,8 @@
     "@angular/platform-browser": "~10.2.4",
     "@angular/platform-browser-dynamic": "~10.2.4",
     "@angular/router": "~10.2.4",
+    "angular-cli-ghpages": "^1.0.0",
     "fontawesome-free": "^1.0.1",
-    "gh-pages": "^3.2.3",
     "isometric-css": "^2.2.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
