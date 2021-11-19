@@ -1,6 +1,26 @@
 <div class="mapContainer">
 <div id="mapContent">
-
+        <div *ngFor="let item of getData.content.images" class="imageWidget">
+            <img [src]="item.url" alt="{{item.title}}"/>
+        </div>
+        <div *ngFor="let item of getData.content.label" class="labelWidget">
+            <div>{{item.text}}</div>
+        </div>
+        <div *ngFor="let item of getData.content.label" class="spaceWidget">
+            <div>{{item.header}}</div>
+            <div *ngIf="item.showDemo">
+                <iframe [src]="item.demo"></iframe>
+            </div>
+            <div *ngIf="item.showCode">
+                <iframe [src]="item.code"></iframe>
+            </div>
+            <div *ngIf="item.showTeam">
+                <iframe [src]="item.team"></iframe>
+            </div>
+        </div>
+        <div *ngFor="let item of getData.content.iframes" class="iframeWidget">
+            <iframe [src]="item.url"></iframe>
+        </div>
         <div *ngFor = "let user of getData.userList;" class="userContainer" [ngStyle]="{top:user.y,left:user.x}">
             <div class="userBoxEffect">
                 <i class="fas fa-user-ninja NoPic"></i>

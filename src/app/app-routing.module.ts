@@ -4,6 +4,7 @@ import { MapComponent } from './screens/map/map.component';
 
 const routes: Routes = [
   { path: '', component: MapComponent },
+  { path: ':map', component: MapComponent },
 ];
 
 

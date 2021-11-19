@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { GetDataService } from 'src/app/services/get-data.service';
 declare const panzoom;
 declare const $;
@@ -13,11 +14,12 @@ export class MapComponent implements OnInit {
   panDetected = false;
 
   constructor(
-    public readonly getData: GetDataService
-
+    public readonly getData: GetDataService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.getData.getMap(this.router.url);
     const container = document.querySelector('#mapContent');
     panzoom(container, {
 			maxZoom: 1,

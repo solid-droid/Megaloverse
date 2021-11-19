@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+
 declare const VoxeetSDK;
 declare const attachStream;
+declare const maps;
 
 @Injectable({
   providedIn: 'root'
@@ -17,16 +21,54 @@ export class GetDataService {
   cam = true;
   content = {
     images : [],
-    ifames : [],
-    videos : [],
-    text: [],
+    iframes : [],
+    label: [],
     space: [],
   }
 
   private readonly Observable_userList = new BehaviorSubject(undefined);
   getuserList = this.Observable_userList.asObservable();
 
-  constructor() { }
+  constructor(
+    private readonly sanitizer: DomSanitizer,
+    private readonly router: Router,
+  ) {  }
+
+  getMap(key){
+    let _content:any = {
+      images : [],
+      iframes : [],
+      label: [],
+      space: [],
+    };
+    if(key == '/'){
+      this.router.navigate([Object.keys(maps)[0]]);
+    } else {
+      _content = maps[key.split('/')[1]];
+      if(!_content){
+        alert('No map found');
+        this.router.navigate([Object.keys(maps)[0]]);
+      }
+    }
+   _content.images.forEach(x => {
+     x.url = this.getSafeUrl(x.url);
+   });
+    _content.iframes.forEach(x => {
+      x.url = this.getSafeUrl(x.url);
+    });
+    _content.space.forEach(x => {
+      x.code = this.getSafeUrl(x.code);
+      x.demo = this.getSafeUrl(x.demo);
+      x.team = this.getSafeUrl(x.team);
+    });
+
+    this.content = _content;
+
+  }
+
+  getSafeUrl(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url)
+}
 
   async initDolbyIO() {
     await new Promise(r => setTimeout(r, 500));
