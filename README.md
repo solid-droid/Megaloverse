@@ -1,2 +1,3 @@
 # Megaloverse
- Virtual Hackathon and Expo space using dolby.io
+ Metaverse for Hackathon and Expo space using dolby.io
+ 
