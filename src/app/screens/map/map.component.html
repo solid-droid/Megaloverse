@@ -1,27 +1,71 @@
 <div class="mapContainer">
 <div id="mapContent">
-        <div *ngFor="let item of getData.content.images" class="imageWidget">
-            <img [src]="item.url" alt="{{item.title}}"/>
+        <div *ngFor="let item of getData.content.images" 
+        class="imageWidget"
+        [ngStyle]="{
+            left:item.x+'px' , 
+            top:item.y+'px' , 
+            width:item.w+'px' , 
+            height:item.h+'px' 
+        }"
+        >
+            <img [src]="item.url" alt="{{item.alt}}"/>
         </div>
-        <div *ngFor="let item of getData.content.label" class="labelWidget">
-            <div>{{item.text}}</div>
-        </div>
-        <div *ngFor="let item of getData.content.label" class="spaceWidget">
-            <div>{{item.header}}</div>
-            <div *ngIf="item.showDemo">
-                <iframe [src]="item.demo"></iframe>
-            </div>
-            <div *ngIf="item.showCode">
-                <iframe [src]="item.code"></iframe>
-            </div>
-            <div *ngIf="item.showTeam">
-                <iframe [src]="item.team"></iframe>
-            </div>
-        </div>
-        <div *ngFor="let item of getData.content.iframes" class="iframeWidget">
+
+        <div *ngFor="let item of getData.content.iframes" class="iframeWidget"  
+        [ngStyle]="{
+            left:item.x+'px' , 
+            top:item.y+'px' , 
+            width:item.w+'px' , 
+            height:item.h+'px' 
+        }">
             <iframe [src]="item.url"></iframe>
         </div>
-        <div *ngFor = "let user of getData.userList;" class="userContainer" [ngStyle]="{top:user.y,left:user.x}">
+
+        <div *ngFor="let item of getData.content.label" 
+        class="labelWidget"
+        [ngStyle]="{
+            left:item.x+'px' , 
+            top:item.y+'px' , 
+            width:item.w+'px' , 
+            height:item.h+'px' 
+        }"
+        
+        >
+            <div>{{item.text}}</div>
+        </div>
+
+        
+        <div *ngFor="let item of getData.content.likeCounter" 
+        class="counterWidget"
+        [ngStyle]="{
+            left:item.x+'px' , 
+            top:item.y+'px' , 
+            width:item.count == 0 ? '430px' : item.w+'px' , 
+            height:item.h+'px' 
+        }"
+        
+        >
+            <div id="counter_{{item.id}}">
+            {{   
+                item.count == 0 ? "Show Some Love" :
+                item.count == 1 ? "1  Love" :
+                item.count + " Loves" 
+            }}
+            </div>
+        </div>
+
+        <div *ngFor="let item of getData.content.likeBtn" 
+        class="heartWidget" 
+        [ngStyle]="{
+            left:item.x+'px' , 
+            top:item.y+'px'
+        }"
+        >
+            <i (click)="updateLove($event, item.id)" class="icon-heart"></i>
+        </div>
+
+        <div *ngFor="let user of getData.userList" class="userContainer" [ngStyle]="{top:user.y,left:user.x}">
             <div class="userBoxEffect" [ngStyle]="{
                 'box-shadow': user.talking ? 
                 '0px 0px 30px 3px #3da942' : 

@@ -31,3 +31,27 @@ html, body {
     background: #a199c7; 
   }
 }
+
+.icon-heart {
+  background: url(./assets/loveBTN.png);
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: auto;
+  height: 100px;
+  width: 100px;
+  cursor: pointer;
+  display: inline-block;
+}
+.icon-heart--clicked {
+  animation: animateLove 1s steps(14, start);
+  background-position: right;
+}
+
+@keyframes animateLove {
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: -2800px 0px;
+  }
+}

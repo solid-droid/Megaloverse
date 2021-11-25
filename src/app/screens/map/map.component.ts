@@ -49,6 +49,7 @@ export class MapComponent implements OnInit {
                         ];
       $("#localUser").css({left: `${finalCords[0]}px`, top: `${finalCords[1]}px`});
       this.getData.setLocalCords( finalCords[0]+'px', finalCords[1]+'px');
+      this.getData.updateLocalSpatialAudio();
       this.getData.sendMessage(JSON.stringify({
         type: 'move',
         x: finalCords[0]+'px',
@@ -58,5 +59,14 @@ export class MapComponent implements OnInit {
     }
       this.panDetected = false;
   });
+  }
+
+  updateLove(e,id){
+    if(e.path[0].classList.length > 1){
+      this.getData.removeLove(id);
+    } else {
+      this.getData.addLove(id);
+    }
+    e.path[0].classList.toggle("icon-heart--clicked");
   }
 }

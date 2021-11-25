@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "deploy":"ng deploy --base-href=/Megaloverse/",
+    "deploy": "ng deploy --base-href=/Megaloverse/",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -20,6 +20,7 @@
     "@angular/platform-browser": "~10.2.4",
     "@angular/platform-browser-dynamic": "~10.2.4",
     "@angular/router": "~10.2.4",
+    "@voxeet/voxeet-web-sdk": "^3.4.0-beta.1",
     "angular-cli-ghpages": "^1.0.0",
     "fontawesome-free": "^1.0.1",
     "isometric-css": "^2.2.3",
