@@ -22,15 +22,33 @@
             'border-radius': item.r
         }">
         </div>
-
-        <div *ngFor="let item of getData.content.iframes" class="iframeWidget"  
+        
+       <div *ngFor="let item of getData.content.iframes" class="iframeWidget"  
         [ngStyle]="{
             left:item.x+'px' , 
             top:item.y+'px' , 
             width:item.w+'px' , 
-            height:item.h+'px' 
+            height:item.h+'px'
         }">
+        <div *ngIf="!item.github" style="height:100%;">
             <iframe [src]="item.url"></iframe>
+        </div>
+        <div *ngIf="item.github" class="githubCard" (click)="openPage(item.url)">
+            <img [src]="item.pic"/>
+            <div class="data">
+                <diV class="git_title">
+                    {{item.name}}
+                </diV>
+                <div class="git_desc">
+                    {{item.description}}
+                </div>
+                <div class="github">
+                    <img src="assets/github.png" alt="github"/>
+                </div>
+            </div>
+           
+        </div>
+
         </div>
 
 

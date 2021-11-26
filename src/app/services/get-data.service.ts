@@ -78,8 +78,17 @@ export class GetDataService {
        x.url = this.getSafeUrl(x.url);
     });
           
-    _content.iframes.forEach(x => {
-      x.url = this.getSafeUrl(x.url);
+    _content.iframes.forEach(async x => {
+      if(!x.github){
+        x.url = this.getSafeUrl(x.url);
+      } else {
+        const repo = await (await fetch('https://api.github.com/repos/'+x.url)).json();
+        x.url = repo.html_url;
+        x['name'] = repo.name;
+        x['description'] = repo.description;
+        x['pic'] = this.getSafeUrl(repo.owner.avatar_url);
+      }
+
     });
     this.content = _content;
   }

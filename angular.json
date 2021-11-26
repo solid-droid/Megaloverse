@@ -37,7 +37,7 @@
               "src/assets/jquery-3.6.0.min.js",
                "src/assets/panzoom.min.js",
                "src/assets/voxeet-sdk.js",
-               "src/assets/JSscripts.js"               
+               "src/assets/JSscripts.js"         
               ]
           },
           "configurations": {

@@ -132,3 +132,36 @@
     height: 100%;
   }
 }
+
+.githubCard{
+  background: linear-gradient(
+    65deg, black, #15abc59c);
+        border-radius: 50px;
+        padding: 30px;
+        display: grid;
+        height: 100px;
+        width: 500px;
+        grid-gap: 20px;
+        grid-template-columns: 100px 1fr;
+        cursor: pointer;
+
+    .github{
+      position: absolute;
+      right: 13px;
+      top: 13px;
+      img{
+        width: 50px;
+        height: 50px;
+      }
+    }
+    img{
+      width: 100%;
+      border-radius: 45%;
+    }
+    .git_title{
+      font-size: 45px;
+    }
+    .git_desc{
+      font-size: 18px;
+    }
+}
