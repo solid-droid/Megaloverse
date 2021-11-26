@@ -124,3 +124,11 @@
   border: dashed 12px #5b5878;
   position: absolute;
 }
+
+.imageWidget{
+  position: absolute;
+  img{
+    width: 100%;
+    height: 100%;
+  }
+}

@@ -64,6 +64,10 @@ GoOutFullscreen() {
 		document.exitFullscreen();
 }
 
+navigateHome(){
+  window.location.href = "https://solid-droid.github.io/Megaloverse";
+}
+
 
 IsFullScreenCurrently() {
 	const full_screen_element = document.fullscreenElement || null;
