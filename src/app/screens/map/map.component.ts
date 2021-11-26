@@ -31,7 +31,7 @@ export class MapComponent implements OnInit {
   }).on('panstart', e => {
     // this.panDetected = true;
   });
-  $("#localUser").css({left: `${500}px`, top: `${500}px`});
+  $("#localUser").css({left: `${800}px`, top: `${400}px`});
   $('.mapContainer').on('click touchend',(e) => {
     if(!this.panDetected && !this.getData.userLock){
       const pointerX = e.type === 'click' ? e.clientX : e.originalEvent.changedTouches[0].clientX;
@@ -68,5 +68,9 @@ export class MapComponent implements OnInit {
       this.getData.addLove(id);
     }
     e.path[0].classList.toggle("icon-heart--clicked");
+  }
+
+  openPage(url){
+    window.location.href = url;
   }
 }

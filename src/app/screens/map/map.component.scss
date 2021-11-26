@@ -97,3 +97,30 @@
   font-size: 3em;
   font-weight: bold;
 }
+
+.labelWidget{
+  position: absolute;
+  font-size: 50px;
+  width: auto;
+  height: auto;
+}
+
+.urlWidget{
+  position: absolute;
+  font-size: 50px;
+  width: max-content;
+  color: aqua;
+  text-shadow: 3px 3px 5px #61969d;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: 1s;
+  &:hover{
+    color: #b424e0;
+    text-shadow: 3px 3px 5px #dd91e4;
+  }
+}
+
+.borderWidget{
+  border: dashed 12px #5b5878;
+  position: absolute;
+}

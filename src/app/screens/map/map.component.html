@@ -1,6 +1,7 @@
 <div class="mapContainer">
 <div id="mapContent">
-        <div *ngFor="let item of getData.content.images" 
+
+    <div *ngFor="let item of getData.content.images" 
         class="imageWidget"
         [ngStyle]="{
             left:item.x+'px' , 
@@ -10,6 +11,16 @@
         }"
         >
             <img [src]="item.url" alt="{{item.alt}}"/>
+        </div>
+
+        <div *ngFor="let item of getData.content.borders" class="borderWidget"  
+        [ngStyle]="{
+            left:item.x+'px' , 
+            top:item.y+'px' , 
+            width:item.w+'px' , 
+            height:item.h+'px', 
+            'border-radius': item.r
+        }">
         </div>
 
         <div *ngFor="let item of getData.content.iframes" class="iframeWidget"  
@@ -22,19 +33,29 @@
             <iframe [src]="item.url"></iframe>
         </div>
 
+
+
         <div *ngFor="let item of getData.content.label" 
         class="labelWidget"
         [ngStyle]="{
             left:item.x+'px' , 
-            top:item.y+'px' , 
-            width:item.w+'px' , 
-            height:item.h+'px' 
+            top:item.y+'px'
         }"
         
         >
             <div>{{item.text}}</div>
         </div>
 
+        <div *ngFor="let item of getData.content.urls" 
+        class="urlWidget"
+        [ngStyle]="{
+            left:item.x+'px' , 
+            top:item.y+'px'
+        }"
+        
+        >
+            <div (click)="openPage(item.url)">{{item.text}}</div>
+        </div>
         
         <div *ngFor="let item of getData.content.likeCounter" 
         class="counterWidget"

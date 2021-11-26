@@ -13,7 +13,7 @@ declare const attachStream;
 })
 export class GetDataService {
 
-  url = 'http://localhost:9000/.netlify/functions/api';
+  url = 'https://naughty-poitras-5d647a.netlify.app/.netlify/functions/api';
   userList:any = [];
   masterList:any = {};
   localUserObj:any;
@@ -30,6 +30,7 @@ export class GetDataService {
     borders: [],
     likeBtn: [],
     likeCounter: [],
+    urls:[]
   }
   life = null;
   validateLife = null;
@@ -52,6 +53,7 @@ export class GetDataService {
       borders: [],
       likeBtn: [],
       likeCounter: [],
+      urls:[]
     };
     if(key == '/'){
       this.router.navigate(['home']);
@@ -66,26 +68,20 @@ export class GetDataService {
   async loadconent(_content,key){
     if(!_content){
       alert('No map found');
-      this.router.navigate(['home']);
-      const map =await (await fetch(this.url+'/home')).json();    
-      this.currentMap = JSON.parse(JSON.stringify(map));   
-      _content = map?.data[0]?.data || null;
-      this.loadconent(_content,key);
-    } else{
-            if(this.prevkey !== key){
-              this.prevkey = key;
-              this.exitandjoin(key);
-            }
-          
-          _content.images.forEach(x => {
-            x.url = this.getSafeUrl(x.url);
-          });
-          
-          _content.iframes.forEach(x => {
-            x.url = this.getSafeUrl(x.url);
-          });
-          this.content = _content;
     }
+   if(this.prevkey !== key){
+      this.prevkey = key;
+      this.exitandjoin(key);
+    }
+          
+    _content.images.forEach(x => {
+       x.url = this.getSafeUrl(x.url);
+    });
+          
+    _content.iframes.forEach(x => {
+      x.url = this.getSafeUrl(x.url);
+    });
+    this.content = _content;
   }
 
   async exitandjoin(key){
